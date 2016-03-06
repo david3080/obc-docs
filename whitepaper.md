@@ -61,7 +61,7 @@ We believe that one of the fundamental requirements for any blockchain fabric is
 
 &nbsp;
 
-## sインダストリー・ユースケース
+## インダストリー・ユースケース
 
 
 We have compiled a set of initial blockchain requirements that are considered essential for supporting the following abstract use cases.
@@ -107,7 +107,7 @@ Within Open Blockchain, content confidentiality is achieved by encrypting the tr
 
 _Still have questions on confidentiality? Check out the [confidentiality section] (FAQ/confidentiality_FAQ.md) of FAQ._
 
-#### Modular consensus
+#### モジュール型コンセンサス
 Because different industries and regions may run their own networks, different networks might need to deploy different consensus algorithms to fit their usage scenarios. Consensus algorithms under the Open Blockchain protocol must be pluggable, allowing users to select the consensus algorithm of their choice during deployment. The Open Blockchain protocol will provide an implementation of Byzantine Fault Tolerance (BFT) in its initial release, using the PBFT protocol [CL02]. We anticipate that the community will contribute additional consensus algorithm modules in the future.
 
 
