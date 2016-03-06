@@ -1,152 +1,154 @@
-﻿# Open Blockchain Protocol Specification
+# Open Blockchain のプロトコル仕様
 
 _Draft 0.01_
 
-## Preface
+## はじめに
 This document is the protocol specification of Open Blockchain (OBC), a permissioned blockchain implementation for industry use-cases. It is not intended to be a complete explanation of the implementation, but rather the interfaces and relationships between components in the system and the application.
 
-### Intended Audience
+### 想定される読者
 The intended audience for this specification includes the following groups:
 
 - Blockchain vendors who want to implement blockchain systems that conform to this specification
 - Tool developers who want to extend the capabilities of Open Blockchain
 - Application developers who want to leverage blockchain technologies to enrich their applications
 
-### Authors
+### 執筆者
 These are the authors who wrote various sections of this document:  Binh Q Nguyen, Elli Androulaki, Angelo De Caro, Sheehan Anderson, Manish Sethi, Thorsten Kramp, Alessandro Sorniotti, Marko Vukolic, Florian Simon Schubert, Jason K Yellick, Konstantinos Christidis, Srinivasan Muralidharan, Anna D Derbakova, Dulce Ponceleon, David Kravitz, Diego Masini
 
-### Reviewers
+### レビュー
 Frank Lu, John Wolpert, Bishop Brock, Nitin Gaur, Sharon Weed
+
+### 翻訳者
+Masanobu Takagi (david3080@gmail.com, https://www.facebook.com/masanobu.takagi.david)
 
 ### Acknowledgements
 The following individuals have provided invaluable technical input to the specification:
 Gennaro Cuomo, Joseph A Latone, Christian Cachin
 ________________________________________________________
 
-## Table of Contents
-#### 1. Introduction
+## 目次
+#### 1. イントロダクション
 
-   - 1.1 What is Open Blockchain?
-   - 1.2 Why Open Blockchain?
-   - 1.3 Terminology
+   - 1.1 Open Blockchainとは？
+   - 1.2 なぜOpen Blockchain？
+   - 1.3 用語
 
-#### 2. Fabric
+#### 2. ファブリック
 
-   - 2.1 Architecture
-   - 2.1.1 Membership Services
-   - 2.1.2 Blockchain Services
-   - 2.1.3 Chaincode Services
-   - 2.1.4 Events
-   - 2.1.5 Application Programming Interface
-   - 2.1.6 Command Line Interface
-   - 2.2 Topology
-   - 2.2.1 Single Validating Peer
-   - 2.2.2 Multiple Validating Peers
-   - 2.2.3 Multichain
+   - 2.1 アーキテクチャ
+   - 2.1.1 メンバーシップサービス
+   - 2.1.2 ブロックチェインサービス
+   - 2.1.3 チェインコードサービス
+   - 2.1.4 イベント
+   - 2.1.5 アプリケーションプログラミングインタフェース(API)
+   - 2.1.6 コマンドラインインタフェース(CLI)
+   - 2.2 トポロジー
+   - 2.2.1 単一のヴァリデーティングピア
+   - 2.2.2 複数のヴァリデーティングピア
+   - 2.2.3 マルチチェイン
 
-#### 3. Protocol
+#### 3. プロトコル
 
-   - 3.1 Message
-   - 3.1.1 Discovery Messages
-   - 3.1.2 Transaction Messages
-   - 3.1.2.1 Transaction Data Structure
-   - 3.1.2.2 Transaction Specification
-   - 3.1.2.3 Deploy Transaction
-   - 3.1.2.4 Invoke Transaction
-   - 3.1.2.5 Query Transaction
-   - 3.1.3 Synchronization Messages
-   - 3.1.4 Consensus Messages
-   - 3.2 Ledger
-   - 3.2.1 Blockchain
-   - 3.2.1.1 Block
-   - 3.2.1.2 Block Hashing
-   - 3.2.1.3 NonHashData
-   - 3.2.1.4 Transaction
-   - 3.2.2 World State
-   - 3.2.2.1 Hashing the world state
-   - 3.2.2.1.1 Bucket-tree
-   - 3.3 Chaincode
-   - 3.3.1 Virtual Machine Instantiation
-   - 3.3.2 Chaincode Protocol
-   - 3.3.2.1 Chaincode Deploy
-   - 3.3.2.2 Chaincode Invoke
-   - 3.3.2.3 Chaincode Query
-   - 3.3.2.4 Chaincode State
-   - 3.4 Pluggable Consensus Framework
-   - 3.4.1 Consenter interface
-   - 3.4.2 Consensus Programming Interface
-   - 3.4.3 Inquirer interface
-   - 3.4.4 Communicator interface
-   - 3.4.5 SecurityUtils interface
-   - 3.4.6 LedgerStack interface
-   - 3.4.7 Executor interface
-   - 3.4.7.1 Beginning a transaction batch
-   - 3.4.7.2 Executing transactions
-   - 3.4.7.3 Committing and rolling-back transactions
-   - 3.4.8 Ledger interface
-   - 3.4.8.1 ReadOnlyLedger interface
-   - 3.4.8.2 UtilLedger interface
-   - 3.4.8.3 WritableLedger interface
-   - 3.4.9 RemoteLedgers interface
-   - 3.4.10 Controller package
-   - 3.4.11 Helper package
-   - 3.5 Events
-   - 3.4.1 Event Stream
-   - 3.4.2 Event Structure
-   - 3.4.3 Event Adapters
+   - 3.1 メッセージ
+   - 3.1.1 発見メッセージ
+   - 3.1.2 トランザクション・メッセージ
+   - 3.1.2.1 トランザクションのデータ構造
+   - 3.1.2.2 トランザクション仕様
+   - 3.1.2.3 トランザクションのデプロイ
+   - 3.1.2.4 トランザクションの実行
+   - 3.1.2.5 トランザクションのクエリ
+   - 3.1.3 同期メッセージ
+   - 3.1.4 コンセンサス・メッセージ
+   - 3.2 台帳
+   - 3.2.1 ブロックチェイン
+   - 3.2.1.1 ブロック
+   - 3.2.1.2 ブロックのハッシュ化
+   - 3.2.1.3 ハッシュ化されないデータ
+   - 3.2.1.4 トランザクションの実行
+   - 3.2.2 ワールド・ステート
+   - 3.2.2.1 ワールド・ステートのハッシュ化
+   - 3.2.2.1.1 バケットツリー
+   - 3.3 チェインコード
+   - 3.3.1 ヴァーチャルマシンのインスタンス化
+   - 3.3.2 チェインコードのプロトコル
+   - 3.3.2.1 チェインコードのデプロイ
+   - 3.3.2.2 チェインコードの実行
+   - 3.3.2.3 チェインコードのクエリ
+   - 3.3.2.4 チェインコードの状態
+   - 3.4 着脱可能なコンセンサス・フレームワーク
+   - 3.4.1 Consenterインタフェース
+   - 3.4.2 Consensus Programingインタフェース
+   - 3.4.3 Inquirerインタフェース
+   - 3.4.4 Communicatorインタフェース
+   - 3.4.5 SecurityUtilsインタフェース
+   - 3.4.6 LedgerStackインタフェース
+   - 3.4.7 Executorインタフェース
+   - 3.4.7.1 トランザクションバッチの開始
+   - 3.4.7.2 トランザクションの実行
+   - 3.4.7.3 トランザクションのコミットとロールバック
+   - 3.4.8 台帳インタフェース
+   - 3.4.8.1 ReadOnlyLedgerインタフェース
+   - 3.4.8.2 UtilLedgerインタフェース
+   - 3.4.8.3 WritableLedgerインタフェース
+   - 3.4.9 RemoteLedgersインタフェース
+   - 3.4.10 コントローラ・パッケージ
+   - 3.4.11 ヘルパー・パッケージ
+   - 3.5 イベント
+   - 3.5.1 イベント・ストリーム
+   - 3.5.2 イベントの構造
+   - 3.5.3 イベント・アダプター
 
-#### 4. Security
-   - 4. Security
-   - 4.1 Business security requirements
-   - 4.2 User Privacy through Membership Services
-   - 4.2.1 User/Client Enrollment Process
-   - 4.2.2 Expiration and revocation of certificates
-   - 4.2.3 Online wallet service
-   - 4.3 Transaction security offerings at the infrastructure level
-   - 4.3.1 Security lifecycle of transactions
-   - 4.3.2 Transaction confidentiality
-   - 4.3.2.1 Confidentiality against users
-   - 4.3.2.2 Confidentiality against validators
-   - 4.3.3 Invocation access control
-   - 4.3.4 Replay attack resistance
-   - 4.4 Access control features on the application
-   - 4.4.1 Invocation access control
-   - 4.4.2 Read access control
-   - 4.5 Online wallet service
-   - 4.6 Network security (TLS)
-   - 4.7 Restrictions in the current release
-   - 4.7.1 Simplified client
-   - 4.7.1 Simplified transaction confidentiality
+#### 4. セキュリティ
+   - 4. セキュリティ
+   - 4.1 ビジネス・セキュリティの要件
+   - 4.2 メンバーシップ・サービスを使ったユーザのプライバシー
+   - 4.2.1 ユーザ/クライアントの登録プロセス
+   - 4.2.2 証明書の執行と撤回
+   - 4.3 インフラレベルでのトランザクション・セキュリティ・オファリング
+   - 4.3.1 トランザクションのセキュリティ・ライフサイクル
+   - 4.3.2 トランザクションの機密性
+   - 4.3.2.1 ユーザーに対する機密性
+   - 4.3.2.2 ヴァリデータに対する機密性
+   - 4.3.3 リプライ攻撃に対する耐性
+   - 4.4 アプリケーションのアクセス管理機能
+   - 4.4.1 チェインコード実行のアクセス管理
+   - 4.4.2 チェインコード読み込みのアクセス管理
+   - 4.5 オンライン・ウォレット・サービス
+   - 4.6 ネットワーク・セキュリティ (TLS)
+   - 4.7 現行リリースの制約
+   - 4.7.1 簡略化されたクライアント
+   - 4.7.1 簡略化されたトランザクションの機密性
 
-#### 5. Byzantine Consensus
-   - 5.1 Overview
-   - 5.2 Core PBFT
-   - 5.3 Inner Consensus Programming Interface
-   - 5.4 Sieve Consensus
+#### 5. ビザンチン・コンセンサス
+   - 5.1 概要
+   - 5.2 コアPBFT
+   - 5.3 内部のコンセンサス・プログラミング・インタフェース
+   - 5.4 Sieve（シーブ）コンセンサス
 
-#### 6. Application Programming Interface
-   - 6.1 REST Service
+#### 6. アプリケーション・プログラミング・インタフェース(API)
+   - 6.1 RESTサービス
    - 6.2 REST API
    - 6.3 CLI
 
-#### 7. Application Model
-   - 7.1 Composition of an Application
-   - 7.2 Sample Application
+#### 7. アプリケーション・モデル
+   - 7.1 アプリケーションの形成
+   - 7.2 サンプル・アプリケーション
 
-#### 8. Future Directions
-   - 8.1 Enterprise Integration
-   - 8.2 Performance and Scalability
-   - 8.3 Additional Consensus Plugins
-   - 8.4 Additional Languages
+#### 8. 将来の方向性
+   - 8.1 エンタープライズ・インテグレーション
+   - 8.2 パフォーマンスとスケーラビリティ
+   - 8.3 追加のコンセンサス・プラグイン
+   - 8.4 追加の言語
 
-#### 9. References
+#### 9. 参照
 
 ________________________________________________________
 
-## 1. Introduction
+## 1. イントロダクション
+
 This document specifies the principles, architecture, and protocol of Open Blockchain, a blockchain implementation suitable for industrial use-cases.
 
-### 1.1 What is Open Blockchain?
+### 1.1 Open Blockchainとは？
 Open Blockchain is a ledger of digital events, called transactions, shared among  different participants, each having a stake in the system. The ledger can only be updated by consensus of the participants, and, once recorded, information can never be altered. Each recorded event is cryptographically verifiable with proof of agreement from the participants.
 
 Open Blockchain transactions are secured, private, and confidential. Each participant registers with proof of identity to the network membership services to gain access to the system. Transactions are issued with derived certificates unlinkable to the individual participant, offering a complete anonymity on the network. Transaction content is encrypted with sophisticated key derivation functions to ensure only intended participants may see the content, protecting the confidentiality of the business transactions.
@@ -155,11 +157,11 @@ Open Blockchain ledger allows compliance with regulations, and ledger entries ar
 
 Techonologically, Open Blockchain is a fabric of blockchain, where Bitcoin could be a simple application built on Open Blockchain. It is a modular architecture allowing components to be plug-and-play by implementing this protocol specification. It features powerful container technology to host any main stream language for smart contracts development. Leveraging familiar and proven technologies is the motto of the fabric architecture.
 
-### 1.2 Why Open Blockchain?
+### 1.2 なぜOpen Blockchain？
 
 Early blockchain technology serves a set of purposes but is often not well-suited for the needs of specific industries. To meet the demands of modern markets, Open Blockchain is based on an industry-focused design that addresses the multiple and varied requirements of specific industry use cases , extending the learning of the pioneers in this field while also addressing issues such as scalability. Open Blockchain provides a new approach to enable permissioned networks, privacy, and confidentially on multiple blockchain networks.
 
-### 1.3 Terminology
+### 1.3 用語
 The following terminology is defined within the limited scope of this specification to help readers understand clearly and precisely the concepts described here.
 
 **Transaction** is a request to the blockchain to execute a function on the ledger. The function is implemented by a **chaincode**.
@@ -186,58 +188,59 @@ The following terminology is defined within the limited scope of this specificat
 
 
 
-## 2. Fabric
+## 2. ファブリック
 
 Open Blockchain fabric is made up of the core components described in the subsections below.
 
-### 2.1 Architecture
+### 2.1 アーキテクチャ
+
 The reference architecture is aligned in 3 categories: Membership, Blockchain, and Chaincode services. These categories are logical structures, not a physical depiction of partitioning of components into separate processes, address spaces or (virtual) machines.
 
 ![Reference architecture](images/refarch.png)
 
-### 2.1.1 Membership Services
+### 2.1.1 メンバーシップサービス
 Membership provides services for managing identity, privacy, confidentiality and auditability on the network. In a non-permissioned blockchain, participation does not require authorization and all nodes can equally submit transactions and/or attempt to accumulate them into acceptable blocks, i.e. there are no distinctions of roles. Membership services combine elements of Public Key Infrastructure (PKI) and decentralization/consensus to transform a non-permissioned blockchain into a permissioned blockchain. In the latter, entities register in order to acquire long-term identity credentials (enrollment certificates), and may be distinguished according to entity type. In the case of users, such credentials enable the Transaction Certificate Authority (TCA) to issue pseudonymous credentials. Such credentials, i.e., transaction certificates, are used to authorize submitted transactions. Transaction certificates persist on the blockchain, and enable authorized auditors to cluster otherwise unlinkable transactions.  
 
-### 2.1.2 Blockchain Services
+### 2.1.2 ブロックチェインサービス
 Blockchain services manage the distributed ledger through a peer-to-peer protocol, built on HTTP/2. The data structures are highly optimized to provide the most efficient hash algorithm for maintaining the world state replication. Different consensus (PBFT, Raft, PoW, PoS) may be plugged in and configured per deployment.
 
-### 2.1.3 Chaincode Services
+### 2.1.3 チェインコードサービス
 Chaincode services provides a secured and lightweight way to sandbox the chaincode execution on the validating nodes. The environment is a “locked down” and secured container along with a set of signed base images containing secure OS and chaincode language, runtime and SDK layers for Go, Java, and Node.js. Other languages can be enabled if required.
 
-### 2.1.4 Events
+### 2.1.4 イベント
 Validating peers and chaincodes can emit events on the network that applications may listen for and take actions on. There is a set of pre-defined events, and chaincodes can generate custom events. Events are consumed by 1 or more event adapters. Adapters may further deliver events using other vehicles such as Web hooks or Kafka.
 
-### 2.1.5 Application Programming Interface (API)
+### 2.1.5 アプリケーションプログラミングインタフェース(API)
 The primary interface to OBC is a REST API and its variations over Swagger 2.0. The API allows applications to register users, query the blockchain, and to issue transactions. There is a set of APIs specifically for chaincode to interact with the stack to execute transactions and query transaction results.
 
-### 2.1.6 Command Line Interface (CLI)
+### 2.1.6 コマンドラインインタフェース(CLI)
 CLI includes a subset of the REST API to enable developers to quickly test chaincodes or query for status of transactions. CLI is implemented in Golang and operable on multiple OS platforms.
 
-### 2.2 Topology
+### 2.2 トポロジー
 A deployment of Open Blockchain may consist of a membership service, many validating peers, non-validating peers, and 1 or more applications. All of these components make up a chain. There can be multiple chains; each one having its own operating parameters and security requirements.
 
-### 2.2.1 Single Validating Peer
+### 2.2.1 単一のヴァリデーティングピア
 Functionally, a non-validating peer is a subset of a validating peer; that is, every capability on a non-validating peer may be enabled on a validating peer, so the simplest blockchain network of OBC may consist of a single validating peer node. This configuration is most appropriate for a development environment, where a single validating peer may be started up during the edit-compile-debug cycle.
 
 ![Single Validating Peer](images/top-single-peer.png)
 
 A single validating peer doesn't require consensus, and by default uses the `noops` plugin, which executes transactions as they arrive. This gives the developer an immediate feedback during development.
 
-### 2.2.2 Multiple Validating Peers
+### 2.2.2 複数のヴァリデーティングピア
 Production or test networks should be made up of multiple validating and non-validating peers as necessary. Non-validating peers can take workload off the validating peers, such as handling API requests and processing events.
 
 ![Multiple Validating Peers](images/top-multi-peer.png)
 
 The validating peers form a mesh-network (every validating peer connects to every other validating peer) to disseminate information. A non-validating peer connects to a neighboring validating peer that it is allowed to connect to. Non-validating peers are optional since applications may communicate directly with validating peers.
 
-### 2.2.3 Multichain
+### 2.2.3 マルチチェイン
 Each network of validating and non-validating peers makes up a chain. Many chains may be created to address different needs, similar to having multiple Web sites, each serving a different purpose.
 
 
-## 3. Protocol
+## 3. プロトコル
 Open Blockchain peer-to-peer communication is built on [gRPC](http://www.grpc.io/docs/), which allows bi-directional stream-based messaging. It uses [Protocol Buffers](https://developers.google.com/protocol-buffers) to serialize data structures for data transfer between peers. Protocol buffers are a language-neutral, platform-neutral and extensible mechanism for serializing structured data. OBC data structures, messages, and services are described using [proto3 language](https://developers.google.com/protocol-buffers/docs/proto3) notation.
 
-### 3.1 Message
+### 3.1 メッセージ
 Messages passed between nodes are encapsulated by `OpenchainMessage` proto structure, which consists of 4 types: Discovery, Transaction, Synchronization, and Consensus. Each type may define more subtypes embedded in the `payload`.
 
 ```
@@ -275,7 +278,7 @@ message OpenchainMessage {
 ```
 The `payload` is an opaque byte array containing other objects such as `Transaction` or `Response` depending on the type of the message. For example, if the `type` is `CHAIN_TRANSACTION`, the `payload` is a `Transaction` object.
 
-### 3.1.1 Discovery Messages
+### 3.1.1 発見メッセージ
 Upon start up, a peer runs discovery protocol if `OPENCHAIN_PEER_DISCOVERY_ROOTNODE` is specified. `OPENCHAIN_PEER_DISCOVERY_ROOTNODE` is the IP address of another peer on the network (any peer) that serves as the starting point for discovering all the peers on the network. The protocol sequence begins with `DISC_HELLO`, whose `payload` is a `HelloMessage` object, containing its endpoint:
 
 ```
@@ -300,7 +303,7 @@ message PeerID {
 }
 ```
 
-**Definition of fields:**
+**各フィールドの定義:**
 
 - `PeerID` is any name given to the peer at start up or defined in the config file
 - `PeerEndpoint` describes the endpoint and whether it's a validating or a non-validating peer
@@ -312,11 +315,10 @@ If the block height received upon `DISC_HELLO` is higher than the current block 
 
 After `DISC_HELLO`, peer sends `DISC_GET_PEERS` periodically to discover any additional peers joining the network. In response to `DISC_GET_PEERS`, a peer sends `DISC_PEERS` with `payload` containing an array of `PeerEndpoint`. Other discovery message types are not used at this point.
 
-### 3.1.2 Transaction Messages
+### 3.1.2 トランザクション・メッセージ
 There are 3 types of transactions: Deploy, Invoke and Query. A deploy transaction installs the specified chaincode on the chain, while invoke and query transactions call a function of a deployed chaincode. Another type in consideration is Create transaction, where a deployed chaincode may be instantiated on the chain and is addressable. This type has not been implemented as of this writing.
 
-### 3.1.2.1 Transaction Data Structure
-
+### 3.1.2.1 トランザクションのデータ構造
 Messages with type `CHAIN_TRANSACTION` or `CHAIN_QUERY` carry a `Transaction` object in the `payload`:
 
 ```
@@ -374,7 +376,7 @@ enum ConfidentialityLevel {
 
 More detail on transaction security can be found in section 4.
 
-### 3.1.2.2 Transaction Specification
+### 3.1.2.2 トランザクション仕様
 A transaction is always associated with a chaincode specification which defines the chaincode and the execution environment such as language and security context. Currently only Golang is supported for writing chaincode. Other languages may be added in the future.
 
 ```
@@ -404,7 +406,7 @@ message ChaincodeInput {
 }
 ```
 
-**Definition of fields:**
+** 各フィールドの定義: **
 - `chaincodeID` - The chaincode source code path and name.
 - `ctorMsg` - Function name and argument parameters to call.
 - `timeout` - Time in milliseconds to execute the transaction.
@@ -414,7 +416,7 @@ message ChaincodeInput {
 
 The peer, receiving the `chaincodeSpec`, wraps it in an appropriate transaction message and broadcasts to the network.
 
-### 3.1.2.3 Deploy Transaction
+### 3.1.2.3 トランザクションのデプロイ
 Transaction `type` of a deploy transaction is `CHAINCODE_NEW` and the payload contains an object of `ChaincodeDeploymentSpec`.
 
 ```
@@ -424,14 +426,14 @@ message ChaincodeDeploymentSpec {
     bytes codePackage = 3;
 }
 ```
-**Definition of fields:**
+** 各フィールドの定義: **
 - `chaincodeSpec` - See section 3.1.2.2, above.
 - `effectiveDate` - Time when the chaincode is ready to accept invocations.
 - `codePackage` - gzip of the chaincode source.
 
 The validating peers always verify the hash of the `codePackage` when they deploy the chaincode to make sure the package has not been tampered with since the deploy transaction entered the network.
 
-### 3.1.2.4 Invoke Transaction
+### 3.1.2.4 トランザクションの実行
 Transaction `type` of an invoke transaction is `CHAINCODE_EXECUTE` and the `payload` contains an object of `ChaincodeInvocationSpec`.
 
 ```
@@ -440,10 +442,10 @@ message ChaincodeInvocationSpec {
 }
 ```
 
-### 3.1.2.5 Query Transaction
+### 3.1.2.5 トランザクションのクエリ
 A query transaction is similar to an invoke transaction, but the message `type` is `CHAINCODE_QUERY`.
 
-### 3.1.3 Synchronization Messages
+### 3.1.3 同期メッセージ
 Synchronization protocol starts with discovery, described above in section 3.1.1, when a peer realizes that it's behind or its current block is not the same with others. A peer broadcasts either `SYNC_GET_BLOCKS`, `SYNC_STATE_GET_SNAPSHOT`, or `SYNC_STATE_GET_DELTAS` and receives `SYNC_BLOCKS`, `SYNC_STATE_SNAPSHOT`, or `SYNC_STATE_DELTAS` respectively.
 
 The installed consensus plugin (e.g. pbft) dictates how synchronization protocol is being applied. Each message is designed for specific situation:
@@ -496,17 +498,16 @@ message SyncStateDeltas {
 ```
 A delta may be applied forward (from i to j) or backward (from j to i) in the state transition.
 
-### 3.1.4 Consensus Messages
+### 3.1.4 コンセンサス・メッセージ
 Consensus deals with transactions, so a `CONSENSUS` message is initiated internally by the consensus framework when it receives a `CHAIN_TRANSACTION` message. The framework converts `CHAIN_TRANSACTION` into `CONSENSUS` then broadcasts to the validating nodes with the same `payload`. The consensus plugin receives this message and process according to its internal algorithm. The plugin may create custom subtypes to manage consensus finite state machine. See section 3.4 for more details.
 
 
-### 3.2 Ledger
-
+### 3.2 台帳
 The ledger consists of two primary pieces, the blockchain and the world state. The blockchain is a series of linked blocks that is used to record transactions within the ledger. The world state is a key-value database that chaincodes may use to store state when executed by a transaction.
 
-### 3.2.1 Blockchain
+### 3.2.1 ブロックチェイン
 
-#### 3.2.1.1 Block
+#### 3.2.1.1 ブロック
 
 The blockchain is defined as a linked list of blocks as each block contains the hash of the previous block in the chain. The two other important pieces of information that a block contains are the list of transactions contained within the block and the hash of the world state after executing all transactions in the block.
 
@@ -534,7 +535,7 @@ message BlockTransactions {
 * `nonHashData` - A `NonHashData` message that is set to nil before computing the hash of the block, but stored as part of the block in the database.
 * `BlockTransactions.transactions` - An array of Transaction messages. Transactions are not included in the block directly due to their size.
 
-#### 3.2.1.2 Block Hashing
+#### 3.2.1.2 ブロックのハッシュ化
 
 * The `previousBlockHash` hash is calculated using the following algorithm.
   1. Serialize the Block message to bytes using the protocol buffer library.
@@ -545,7 +546,7 @@ message BlockTransactions {
 
 * The `stateHash` is defined in section 3.2.2.1.
 
-#### 3.2.1.3 NonHashData
+#### 3.2.1.3 ハッシュ化されないデータ
 
 The NonHashData message is used to store block metadata that is not required to be the same value on all peers. These are suggested values.
 
@@ -576,24 +577,25 @@ message TransactionResult {
 * `error` - A string that can be used to log errors associated with the transaction.
 
 
-#### 3.2.1.4 Transaction Execution
+#### 3.2.1.4 トランザクションの実行
 
 A transaction defines either the deployment of a chaincode or the execution of a chaincode. All transactions within a block are run before recording a block in the ledger. When chaincodes execute, they may modify the world state. The hash of the world state is then recorded in the block.
 
 
-### 3.2.2 World State
+### 3.2.2 ワールドステート
 The *world state* of a peer refers to the collection of the *states* of all the deployed chaincodes. Further, the state of a chaincode is represented as a collection of key-value pairs. Thus, logically, the world state of a peer is also a collection of key-value pairs where key consists of a tuple `{chaincodeID, ckey}`. Here, we use the term `key` to represent a key in the world state i.e., a tuple `{chaincodeID, ckey}` and we use the term `cKey` to represent a unique key within a chaincode.
 
 For the purpose of the description below, `chaincodeID` is assumed to be a valid utf8 string and `ckey` and the `value` can be a sequence of one or more arbitrary bytes.
 
-#### 3.2.2.1 Hashing the world state
+#### 3.2.2.1 ワールド・ステートのハッシュ化
+
 During the functioning of an OBC network, many occasions such as committing transactions and synchronizing peers may require computing a crypto-hash of the world state observed by a peer. For instance, the consensus protocol may require to ensure that a *minimun* number of peers in the network observe the same world state.
 
 Since, computing the crypto-hash of the world state could be an expensive operation, this is highly desirable to organize the world state such that it enables an efficient crypto-hash computation of the world state when a change occurs in the world state. Further, different organization designs may be suitable under different workloads conditions.
 
 Since the OBC is expected to function under a variety of scenarios leading to different workloads conditions, a pluggable mechanism is supported for organizing the world state.
 
-#### 3.2.2.1.1 Bucket-tree
+#### 3.2.2.1.1 バケットツリー
 
 *Bucket-tree* is one of the implementations for organizing the world state. For the purpose of the description below, a key in the world state is represented as a concatenation of the two components (`chaincodeID` and `ckey`)  separated by a `nil` byte i.e., `key` = `chaincodeID`+`nil`+`cKey`.
 
@@ -639,10 +641,10 @@ The above method offers performance benefits for computing crypto-hash when a fe
 In a particular deployment, all the peer nodes are expected to use same values for the configurations `numBuckets, maxGroupingAtEachLevel, and hashFunction`. Further, if any of these configurations are to be changed at a later stage, the configurations should be changed on all the peer nodes so that the comparison of crypto-hashes across peer nodes is meaningful. Also, this may require to migrate the existing data based on the implementation. For example, an implementation is expected to store the last computed crypto-hashes for all the nodes in the tree which would need to be recalculated.
 
 
-### 3.3 Chaincode
+### 3.3 チェインコード
 Chaincode is an application-level code deployed as a transaction (see section 3.1.2) to be distributed to the network and managed by each validating peer as isolated sandbox. Though any virtualization technology can support the sandbox, currently Docker container is utilized to run the chaincode. The protocol described in this section enables different virtualization support implementation to plug and play.
 
-### 3.3.1 Virtual Machine Instantiation
+### 3.3.1 ヴァーチャルマシンのインスタンス化
 A virtual machine implements the VM interface:  
 ```
 type VM interface {
@@ -655,7 +657,7 @@ The fabric instantiates the VM when it processes a Deploy transaction or other t
 
 Once the chaincode container is up, it makes a gRPC connection back to the validating peer that started the chaincode, and that establishes the channel for Invoke and Query transactions on the chaincode.
 
-### 3.3.2 Chaincode Protocol
+### 3.3.2 チェインコードのプロトコル
 Communication between a validating peer and its chaincodes is based on a bidirectional gRPC stream. There is a shim layer on the chaincode container to handle the message protocol between the chaincode and the validating peer using protobuf message.
 ```
 message ChaincodeMessage {
@@ -688,7 +690,7 @@ message ChaincodeMessage {
 }
 ```
 
-**Definition of fields:**
+** 各フィールドの定義: **
 - `Type` is the type of the message.
 - `payload` is the payload of the message. Each payload depends on the `Type`.
 - `uuid` is a unique identifier of the message.
@@ -706,20 +708,20 @@ type Chaincode interface {
 
 The parameters `function` and `args` point to the function implemented by the chaincode that the `Invoke` calls and passes the `args`. Similar behavior for the `Query` function. The `Query` function is not allowed to modify the state of the chaincode; it can only read and calculate the return value as a byte array.
 
-### 3.3.2.1 Chaincode Deploy
+### 3.3.2.1 チェインコードのデプロイ
 Upon deploy (chaincode container is started), the shim layer sends a one time `REGISTER` message to the validating peer with the `payload` containing the `ChaincodeID`. The validating peer responds with `REGISTERED` or `ERROR` on success or failure respectively. The shim closes the connection and exits if it receives an `ERROR`.
 
 After registration, the validating peer sends `INIT` with the `payload` containing a `ChaincodeInput` object. The shim calls the `Invoke` function with the parameters from the `ChaincodeInput`, enabling the chaincode to perform any initialization, such as setting up the persistent state.
 
 The shim responds with `RESPONSE` or `ERROR` message depending on the returned value from the chaincode `Invoke` function. If there are no errors, the chaincode initialization is complete and is ready to receive Invoke and Query transactions.
 
-### 3.3.2.2 Chaincode Invoke
+### 3.3.2.2 チェインコードの実行
 When processing an invoke transaction, the validating peer sends a `TRANSACTION` message to the chaincode container shim, which in turn calls the chaincode `Invoke` function, passing the parameters from the `ChaincodeInput` object. The shim responds to the validating peer with `RESPONSE` or `ERROR` message, indicating the completion of the function. If `ERROR` is received, the `payload` contains the error message generated by the chaincode.
 
-### 3.3.2.3 Chaincode Query
+### 3.3.2.3 チェインコードのクエリ
 Similar to an invoke transaction, when processing a query, the validating peer sends a `QUERY` message to the chaincode container shim, which in turn calls the chaincode `Query` function, passing the parameters from the `ChaincodeInput` object. The `Query` function may return a state value or an error, which the shim forwards to the validating peer using `RESPONSE` or `ERROR` messages respectively.
 
-### 3.3.2.4 Chaincode State
+### 3.3.2.4 チェインコードの状態
 Each chaincode may define its own persistent state variables. For example, a chaincode may create assets such as TVs, cars, or stocks using state variables to hold the assets attributes. During `Invoke` function processing, the chaincode may update the state variables, for example, changing an asset owner. A chaincode manipulates the state variables by using the following message types:
 
 #### PUT_STATE
@@ -785,7 +787,7 @@ Chaincode may call another chaincode in the same transaction context by sending 
 Chaincode may query another chaincode in the same transaction context by sending a `QUERY_CHAINCODE` message with the `payload` containing a `ChaincodeSpec` object.
 
 
-### 3.4 Pluggable Consensus Framework
+### 3.4 着脱可能なコンセンサス・フレームワーク
 
 Open Blockchain consensus framework defines the interfaces that every consensus _plugin_ implements:
 
@@ -807,7 +809,7 @@ There are 2 consensus plugins provided: `pbft` and `noops`:
 -  `noops` is a ''dummy'' consensus plugin for development and test purposes. It doesn't perform consensus but processes all consensus messages. It also serves as a good simple sample to start learning how to code a consensus plugin.
 
 
-### 3.4.1 `Consenter` interface
+### 3.4.1 `Consenter`インタフェース
 
 Definition:
 ```
@@ -819,7 +821,7 @@ The plugin's entry point for (external) client requests, and consensus messages 
 
 See `helper.HandleMessage` below to understand how the peer interacts with this interface.
 
-### 3.4.2 `CPI` interface
+### 3.4.2 `CPI`インタフェース
 
 Definition:
 ```
@@ -835,7 +837,7 @@ type CPI interface {
   1. Is instantiated when the `helper.NewConsensusHandler` is called.
   2. Is accessible to the plugin author when they construct their plugin's `consensus.Consenter` object.
 
-### 3.4.3 `Inquirer` interface
+### 3.4.3 `Inquirer`インタフェース
 
 Definition:
 ```
@@ -854,7 +856,7 @@ message PeerID {
 }
 ```
 
-### 3.4.4 `Communicator` interface
+### 3.4.4 `Communicator`インタフェース
 
 Definition:
 
@@ -867,7 +869,7 @@ type Communicator interface {
 
 This interface is a part of the `consensus.CPI` interface. It is used to communicate with other peers on the network (`helper.Broadcast`, `helper.Unicast`):
 
-### 3.4.5 `SecurityUtils` interface
+### 3.4.5 `SecurityUtils`インタフェース
 
 Definition:
 
@@ -880,7 +882,7 @@ type SecurityUtils interface {
 
 This interface is a part of the `consensus.CPI` interface. It is used to handle the cryptographic operations of message signing (`Sign`) and verifying signatures (`Verify`)
 
-### 3.4.6 `LedgerStack` interface
+### 3.4.6 `LedgerStack`インタフェース
 
 Definition:
 
@@ -894,7 +896,7 @@ type LedgerStack interface {
 
 A key member of the `CPI` interface, `LedgerStack` groups interaction of consensus with the rest of the Open Blockchain blockchain fabric, such as the execution of transactions, querying, and updating the ledger.  This interface supports querying the local blockchain and state, updating the local blockchain and state, and querying the blockchain and state of other nodes in the consensus network. It consists of three parts: `Executor`, `Ledger` and `RemoteLedgers` interfaces. These are described in the following.
 
-### 3.4.7 `Executor` interface
+### 3.4.7 `Executor`インタフェース
 
 Definition:
 
@@ -910,7 +912,7 @@ type Executor interface {
 
 The executor interface is the most frequently utilized portion of the `LedgerStack` interface, and is the only piece which is strictly necessary for a consensus network to make progress.  The interface allows for a transaction to be started, executed, rolled back if necessary, previewed, and potentially committed.  This interface is comprised of the following methods.
 
-#### 3.4.7.1 Beginning a transaction batch
+#### 3.4.7.1 トランザクションバッチの開始
 
 ```
 BeginTxBatch(id interface{}) error
@@ -918,7 +920,7 @@ BeginTxBatch(id interface{}) error
 
 This call accepts an arbitrary `id`, deliberately opaque, as a way for the consensus plugin to ensure only the transactions associated with this particular batch are executed. For instance, in the pbft implementation, this `id` is the an encoded hash of the transactions to be executed.
 
-#### 3.4.7.2 Executing transactions
+#### 3.4.7.2 トランザクションの実行
 
 ```
 ExecTXs(id interface{}, txs []*pb.Transaction) ([]byte, []error)
@@ -926,7 +928,7 @@ ExecTXs(id interface{}, txs []*pb.Transaction) ([]byte, []error)
 
 This call accepts an array of transactions to execute against the current state of the ledger and returns the current state hash in addition to an array of errors corresponding to the array of transactions.  Note that a transaction resulting in an error has no effect on whether a transaction batch is safe to commit.  It is up to the consensus plugin to determine the behavior which should occur when failing transactions are encountered.  This call is safe to invoke multiple times.
 
-#### 3.4.7.3 Committing and rolling-back transactions
+#### 3.4.7.3 トランザクションのコミットとロールバック
 
 ```
 RollbackTxBatch(id interface{}) error
@@ -947,7 +949,7 @@ CommitTxBatch(id interface{}, transactions []*pb.Transaction, transactionsResult
 This call commits a block to the blockchain.  Blocks must be committed to a blockchain in total order. ``CommitTxBatch`` concludes the transaction batch, and a new call to `BeginTxBatch` must be made before any new transactions are executed and committed.
 
 
-### 3.4.8 `Ledger` interface
+### 3.4.8 `Ledger`インタフェース
 
 Definition:
 
@@ -961,7 +963,7 @@ type Ledger interface {
 
 ``Ledger`` interface is intended to allow the consensus plugin to interrogate and possibly update the current state and blockchain. It is comprised of the three interfaces described below.
 
-#### 3.4.8.1 `ReadOnlyLedger` interface
+#### 3.4.8.1 `ReadOnlyLedger`インタフェース
 
 Definition:
 
@@ -997,7 +999,7 @@ GetCurrentStateHash() (stateHash []byte, err error)
 This call returns the current state hash for the ledger.  In general, this function should never fail, though in the unlikely event that this occurs, the error is passed to the caller to decide what if any recovery is necessary.
 
 
-#### 3.4.8.2 `UtilLedger` interface
+#### 3.4.8.2 `UtilLedger`インタフェース
 
 Definition:
 
@@ -1024,7 +1026,7 @@ This utility method is intended for verifying large sections of the blockchain. 
 
 
 
-#### 3.4.8.3 `WritableLedger` interface
+#### 3.4.8.3 `WritableLedger`インタフェース
 
 Definition:
 
@@ -1103,7 +1105,7 @@ The `RemoteLedgers` interface exists primarily to enable state transfer and to i
 
 	This function attempts to retrieve a stream of `*pb.SyncStateDeltas` from the peer designated by `peerID` for the range from `start` to `finish`.  The caller must validated that the desired block delta is being returned, as it is possible that slow results from another request could appear on this channel.  Invoking this call for the same `peerID` a second time will cause the first channel to close.
 
-### 3.4.10 `controller` package
+### 3.4.10 `controller`パッケージ
 
 #### 3.4.10.1 controller.NewConsenter
 
@@ -1119,9 +1121,9 @@ The plugin author needs to edit the function's body so that it routes to the rig
 
 This function is called by `helper.NewConsensusHandler` when setting the `consenter` field of the returned message handler. The input argument `cpi` is the output of the `helper.NewHelper` constructor and implements the `consensus.CPI` interface.
 
-### 3.4.11 `helper` package
+### 3.4.11 `helper`パッケージ
 
-#### 3.4.11.1 High-level overview
+#### 3.4.11.1 ハイレベルの概要
 
 A validating peer establishes a message handler (`helper.ConsensusHandler`) for every connected peer, via the `helper.NewConsesusHandler` function (a handler factory). Every incoming message is inspected on its type (`helper.HandleMessage`); if it's a message for which consensus needs to be reached, it's passed on to the peer's consenter object (`consensus.Consenter`). Otherwise it's passed on to the next message handler in the stack.
 
@@ -1204,13 +1206,13 @@ The function inspects the `Type` of the incoming `OpenchainMessage`. There are f
   4. Otherwise: passed to the `HandleMessage` method of the next handler down the stack.
 
 
-### 3.5 Events
+### 3.5 イベント
 The event framework provides the ability to generate and consume predefined and custom events. There are 3 basic components:
   - Event stream
   - Event adapters
   - Event structures
 
-#### 3.5.1 Event Stream
+#### 3.5.1 イベント・ストリーム
 An event stream is a gRPC channel capable of sending and receiving events. Each consumer establishes an event stream to the event framework and expresses the events that it is interested in. the event producer only sends appropriate events to the consumers who have connected to the producer over the event stream.
 
 The event stream initializes the buffer and timeout parameters. The buffer holds the number of events waiting for delivery, and the timeout has 3 options when the buffer is full:
@@ -1220,7 +1222,7 @@ The event stream initializes the buffer and timeout parameters. The buffer holds
 - If timeout is greater than 0, wait for the specified timeout and drop the event if the buffer remains full after the timeout
 
 
-#### 3.5.1.1 Event Producer
+#### 3.5.1.1 イベント・プロデューサ
 The event producer exposes a function to send an event, `Send(e *pb.OpenchainEvent)`, where `OpenchainEvent` is either a pre-defined `Block` or a `Generic` event. More events will be defined in the future to include other elements of the fabric.
 
 ```
@@ -1232,7 +1234,7 @@ message Generic {
 
 The `eventType` and `payload` are freely defined by the event producer. For example, JSON data may be used in the `payload`. The `Generic` event may also be emitted by the chaincode or plugins to communicate with consumers.
 
-#### 3.5.1.2 Event Consumer
+#### 3.5.1.2 イベント・コンシューマ
 The event consumer enables external applications to listen to events. Each event consumer registers an event adapter with the event stream. The consumer framework can be viewed as a bridge between the event stream and the adapter. A typical use of the event consumer framework is:
 
 ```
@@ -1244,7 +1246,7 @@ consumerClient.Start()
 consumerClient.Stop()
 ```
 
-#### 3.5.2 Event Adapters
+#### 3.5.2 イベント・アダプター
 The event adapter encapsulates three facets of event stream interaction:
   - an interface that returns the list of all events of interest
   - an interface called by the event consumer framework on receipt of an event
@@ -1260,7 +1262,7 @@ The reference implementation provides Golang specific language binding.
 ```
 Using gRPC as the event bus protocol allows the event consumer framework to be ported to different language bindings without affecting the event producer framework.
 
-#### 3.5.3 Event Structure
+#### 3.5.3 イベントの構造
 
 This section details the message structures of the event system. Messages are described directly in Golang for simplicity.
 
@@ -1299,7 +1301,7 @@ Events can be sent directly as protobuf structures or can be sent as JSON struct
 Currently, the producer framework can generate a `Block` or a `Generic` event. A `Block` is a message used for encapsulating properties of a block in the blockchain.
 
 
-## 4. Security
+## 4. セキュリティ
 
 This section discusses the setting depicted in the figure below.
 In particular, the system consists of the following entities:
@@ -1343,7 +1345,8 @@ through an invocation transaction.
 
 The next section provides a summary of the business goals of the system that drive the security requirements. We then overview the security components and their operation and show how this design fulfills the security requirements.  
 
-### 4.1 Business security requirements
+### 4.1 ビジネス・セキュリティの要件
+
 This section presents business security requirements that are relevant to the context of Open Blockchain.
 **Incorporation of identity and role management.**
 
@@ -1384,7 +1387,7 @@ As described later in this document, the approach taken here to reconcile identi
 
 **Audit support.** Commercial systems are occasionally subjected to audits. Auditors in such cases should be given the means to check a certain transaction, or a certain group of transactions, the activity of a particular user of the system, or the operation of the system itself. Thus, such capabilities should be offered by any system featuring transactions containing contractual agreements between business partners.
 
-### 4.2 User Privacy through Membership Services
+### 4.2 メンバーシップ・サービスを使ったユーザのプライバシー
 
 Membership Services consists of an infrastructure of several entities that together manage the identity and privacy of users on the network. These services validate user’s identity, register the user in the system, and provide all the credentials needed for him/her to be an active and compliant participant able to create and/or invoke transactions. A Public Key Infrastructure (PKI) is a framework based on public key cryptography that ensures not only the secure exchange of data over public networks but also affirms the identity of the other party. A PKI manages the generation, distribution and revocation of keys and digital certificates. Digital certificates are used to establish user credentials and to sign messages. Signing messages with a certificate ensures that the message has not been altered. Typically a PKI has a Certificate Authority (CA), a Registration Authority (RA), a certificate database, and a certificate storage. The RA is a trusted party that authenticates users and vets the legitimacy of data, certificates or other evidence submitted to support the user’s request for one or more certificates that reflect that user’s identity or other properties. A CA, upon advice from an RA, issues digital certificates for specific uses and is certified directly or hierarchically by a root CA. Alternatively, the user-facing communications and due diligence responsibilities of the RA can be subsumed as part of the CA. Membership Services is composed of the entities shown in the following figure. Introduction of such full PKI reinforces the strength of this system for B2B (over, e.g. Bitcoin).
 
@@ -1452,7 +1455,7 @@ TLS-Certs are certificates used for system/component-to-system/component communi
 
 This implementation of membership services provides the following basic functionality: there is no expiration/revocation of ECerts; expiration of TCerts is provided via the validity period time window; there is no revocation of TCerts. The ECA, TCA, and TLS CA certificates are self-signed, where the TLS CA is provisioned as a trust anchor.
 
-#### 4.2.1 User/Client Enrollment Process
+#### 4.2.1 ユーザ/クライアントの登録プロセス
 
 The next figure has a high-level description of the user enrollment process. It has an offline and an online phase.
 
@@ -1479,7 +1482,7 @@ In this implementation the enrollment process for validators is the same as that
 
 *Client:* Deriving TCert private key from a TCert in order to be able to deploy or invoke or query: KeyDF_Key and ECert private key need to be pulled from Local Storage. KeyDF_Key is used to derive TCertOwner_EncryptKey as [HMAC(KeyDF_Key, “1”)]<sub>256-bit truncation</sub>; then TCertOwner_EncryptKey is used to decrypt the TCert field AES_Encrypt TCertOwner_EncryptKey(TCertIndex || known padding/parity check vector); then TCertIndex is used to derive TCert private key: TCertPriv_Key = (EnrollPriv_Key + ExpansionValue) modulo n, where 384-bit ExpansionValue = HMAC(Expansion_Key, TCertIndex) and 384-bit Expansion_Key = HMAC(KeyDF_Key, “2”).
 
-#### 4.2.2 Expiration and revocation of certificates
+#### 4.2.2 証明書の執行と撤回
 
 It is practical to support expiration of transaction certificates. The time window during which a transaction certificate can be used is expressed by a ‘validity period’ field. The challenge regarding support of expiration lies in the distributed nature of the system. That is, all validating entities must share the same information; i.e. be consistent with respect to the expiration of the validity period associated with the transactions to be executed and validated. To guarantee that the expiration of validity periods is done in a consistent manner across all validators, the concept of validity period identifier is introduced. This identifier acts as a logical clock enabling the system to uniquely identify a validity period. At genesis time the “current validity period” of the chain gets initialized by the TCA. It is essential that this validity period identifier is given monotonically increasing values over time, such that it imposes a total order among validity periods.
 
@@ -1493,7 +1496,7 @@ Enrollment certificates have different validity period length(s) than those in t
 
 Revocation is supported in the form of Certificate Revocation Lists (CRLs). CRLs identify revoked certificates. Changes to the CRLs, incremental differences, are announced through the Blockchain.
 
-### 4.3 Transaction security offerings at the infrastructure level
+### 4.3 インフラレベルでのトランザクション・セキュリティ・オファリング
 
 Transactions in Open Blockchain are user-messages submitted to be included
 in the ledger. As discussed in previous sections, these messages have a
@@ -1539,7 +1542,7 @@ infrastructure are incorporated in the transactions' lifecycle,
 and details each security mechanism separately.
 
 
-#### 4.3.1 Security Lifecycle of Transactions
+#### 4.3.1 トランザクションのセキュリティ・ライフサイクル
 Transactions are created on the client side. The client can be either plain
 Open Blockchain client, or a more specialized application, i.e., piece of
 software that handles (server) or invokes (client) specific chaincodes
@@ -1580,7 +1583,7 @@ Validators receive the confidential transactions, and pass them through the foll
 * *commit* phase, where (encrypted) updates of that chaincodes state is committed to the ledger with the transaction itself.
 
 
-#### 4.3.2 Transaction confidentiality
+#### 4.3.2 トランザクションの機密性
 
 Transaction confidentiality requires that under the request of the developer, the plain-text
 of a chaincode, i.e., code, description, is not accessible or inferable (assuming a computational
@@ -1616,7 +1619,7 @@ Notice, that this design offers the application the capability to leverage Open 
 membership service infrastructure and its public key infrastructure to build their own access
 control policies and enforcement mechanisms.
 
-##### 4.3.2.1 Confidentiality against users
+##### 4.3.2.1 ユーザーに対する機密性
 
 To support fine-grained confidentiality control, i.e., restrict read-access to the
 plain-text of a chaincode to a subset of users that the chaincode creator
@@ -1790,13 +1793,14 @@ of the chaincode, and thus there is no need for the state to be retrieved
 (decrypted) and/or updated (encrypted) after the execution of the chaincode
 completes.
 
-##### 4.3.2.2 Confidentiality against validators
+##### 4.3.2.2 ヴァリデータに対する機密性
 This section deals with ways of how to support execution of certain transactions
 under a different (or subset) sets of validators in the current chain. This
 section inhibits IP restrictions and will be expanded in the following few weeks.
 
 
-#### 4.3.3 Replay attack resistance
+#### 4.3.3 リプライ攻撃に対する耐性
+
 In replay attacks the attacker "replays" a message it "eavesdropped" on the network or ''saw'' on the Blockchain.
 Replay attacks are a big problem here, as they can incur into the validating entities re-doing a computationally intensive
 process (chaincode invocation) and/or affect the state of the corresponding chaincode, while it requires minimar or no
@@ -1859,7 +1863,7 @@ depending on whether the transaction is anonymous (followed and signed by a tran
   **Storage overhead** (only makes sense for validators here):  O(m), where m is the approximate number of
   transactions within a validity period and corresponding validity period identifier (see below).
 
-### 4.4 Access control features on the application
+### 4.4 アプリケーションのアクセス管理機能
 
 An application, is a piece of software that runs on top of a Blockchain client software, and,
 performs a special task over the Blockchain, i.e., restaurant table reservation.
@@ -1876,7 +1880,7 @@ The presentation is divided into enforcement of invocation access control,
 and enforcement of read-access control by the application.
 
 
-#### 4.4.1 Invocation access control
+#### 4.4.1 チェインコード実行のアクセス管理
 To allow the application to implement its own invocation access control at the
 application layer securely, special support by the fabric must be provided.
 In the following we elaborate on the tools exposed by the fabric to the
@@ -2052,7 +2056,7 @@ Notice that *sigma* is either part of the arguments of the invoked function, or 
 Application ACLs are included in the code-metadata section, that is also passed to the chain-code at execution time.
 Function *hello* is responsible for checking that *sigma* is indeed a valid signature issued by TCert<sub>u<sub>i</sub></sub>, on '*M* || *txBinding'*.
 
-#### 4.4.2 Read access control
+#### 4.4.2 チェインコード読み込みのアクセス管理
 This section deals with the way Open Blockchain infrastructure offers support to the application to
 enforce its own read-access control policies at the level of users. As in the case of invocation access
 control, the first part describes the infrastructure features that can be leveraged by the application for this
@@ -2105,8 +2109,7 @@ to pass information to the developer of the application, etc.
 throughout its execution. Its infrastructure is though responsible for decrypting the payload of the chain-code itself (as well as
 the code-metadata fields near it), and provide those to containers for deployment/execution.
 
-### 4.5 Online wallet service
-
+### 4.5 オンライン・ウォレット・サービス
 
 This section shows the security design of an Open Blockchain wallet service, that is, a node where end-users can register,
 move their key material to, and perform transactions through.
@@ -2161,17 +2164,12 @@ Nonce-based methods similar to what we have in Open Blockchain can be used to pr
 TLS connections can be used in each case with server side authentication to secure the request at the
 network layer (confidentiality, replay attack protection, etc)
 
-
-
-
-### 4.6 Network security (TLS)
+### 4.6 ネットワーク・セキュリティ (TLS)
 The TLS CA should be capable of issuing TLS certificates to (non-validating) peers, validators, and individual clients (or browsers capable of storing a private key). Preferably, these certificates are distinguished by type, per above. TLS certificates for CAs of the various types (such as TLS CA, ECA, TCA) could be issued by an intermediate CA (i.e., a CA that is subordinate to the root CA). Where there is not a particular traffic analysis issue, any given TLS connection can be mutually authenticated, except for requests to the TLS CA for TLS certificates.
 
 In the current implementation the only trust anchor is the TLS CA self-signed certificate in order to accommodate the limitation of a single port to communicate with all three (co-located) servers, i.e., the TLS CA, the TCA and the ECA. Consequently, the TLS handshake is established with the TLS CA, which passes the resultant session keys to the co-located TCA and ECA. The trust in validity of the TCA and ECA self-signed certificates is therefore inherited from trust in the TLS CA. In an implementation that does not thus elevate the TLS CA above other CAs, the trust anchor should be replaced with a root CA under which the TLS CA and all other CAs are certified.
 
-
-
-### 4.7 Restrictions in the current release
+### 4.7 現行リリースの制約
 This section lists the restrictions of the current release of Open Blockchain.
 A particular focus is given on client operationsa and the design of transaction confidentiality,
 as depicted in Sections 4.7.1, and 4.7.2.
@@ -2195,8 +2193,7 @@ as depicted in Sections 4.7.1, and 4.7.2.
    to *bind* the transaction binding offered by our fabric, secure transaction
    processing  may be at risk.
 
-#### 4.7.1 Simplified client
-
+#### 4.7.1 簡略化されたクライアント
 Client side enrollment and transaction creation is performed entirely by a non-validating peer who plays the role of an online wallet.
 In particular, the end-user leverages his registration credentials <username, password> to open an account to a non-validating peer
 and uses these credentials to further authorize the peer to build transactions on the user's behalf. It needs to be noted, that such
@@ -2204,8 +2201,7 @@ a design does not provide secure **authorization** for the peer to submit transa
 could impersonate the user. Details on the specifications of a design that deals with the security issues of online wallet can be found is Section 4.5.
 Currently the maximum number of peers a user can register to and perform transactions through is one.
 
-#### 4.7.2 Simplified transaction confidentiality
-
+#### 4.7.2 簡略化されたトランザクションの機密性
 **Disclaimer:** The current version of transaction confidentiality is minimal, and will be used as an intermediate step
 to reach a design that allows for fine grain (invocation) access control enforcement in the next versions.
 
@@ -2321,14 +2317,14 @@ One can notice that both deployment and invocation transactions consist of two s
   invocation chain-code is the name of the function invoked and its arguments. As shown in the two figures code-info
   in both transactions are encrypted ultimately using the chain-specific symmetric key K<sub>chain</sub>.
 
-## 5. Byzantine Consensus
+## 5. ビザンチン・コンセンサス
 The ``obcpbft`` package is an implementation of the seminal [PBFT](http://dl.acm.org/citation.cfm?id=571640 "PBFT") consensus protocol [1], which provides consensus among validators despite a threshold of validators acting as _Byzantine_, i.e., being malicious or failing in an unpredictable manner. In the default configuration, PBFT tolerates up to t<n/3 Byzantine validators.
 
 Besides providing a reference implementation of the PBFT consensus protocol, ``obcpbft`` plugin contains also implementation of the novel _Sieve_ consensus protocol. Basically the idea behind Sieve is to provide a fabric-level protection from _non-deterministic_ transactions, which PBFT and similar existing protocols do not offer. ``obcpbft`` is easily configured to use either the classic PBFT or Sieve.  
 
 In the default configuration, both PBFT and Sieve are designed to run on at least *3t+1* validators (replicas), tolerating up to *t* potentially faulty (including malicious, or *Byzantine*) replicas.
 
-### 5.1 Overview
+### 5.1 概要
 The `obcpbft` plugin provides a modular implementation of the `CPI` interface which can be configured to run PBFT or Sieve consensus protocol. The modularity comes from the fact that, internally, `obcpbft` defines the `innerCPI`  interface (i.e., the _inner consensus programming interface_), that currently resides in `pbft-core.go`.
 
 The `innerCPI` interface defines all
@@ -2342,7 +2338,7 @@ In short, besides calls to send messages to other peers (`innerCPI.broadcast` an
 
 Besides `innerCPI`, core PBFT is defined by a set of calls into core PBFT. The most important call into core PBFT is `request` which is effectively used to invoke a total order broadcast primitive [2]. In the following, we first overview calls into core PBFT and then detail the ``innerCPI`` interface. Then, we briefly describe Sieve consensus protocol which will be specified and described in more details elsewhere.  
 
-### 5.2 Core PBFT Functions
+### 5.2 コアPBFT機能
 The following functions control for parallelism using a non-recursive lock and can therefore be invoked from multiple threads in parallel. However, the functions typically run to completion and may invoke functions from the CPI passed in.  Care must be taken to prevent livelocks.
 
 #### 5.2.1 newPbftCore
@@ -2405,7 +2401,7 @@ func (pbft *pbftCore) close()
 
 The `close` method terminates all background operations.  This interface is mostly exposed for testing, because during operation of the obc peer, there is never a need to terminate the PBFT instance.
 
-### 5.3 Inner Consensus Programming Interface
+### 5.3 内部のコンセンサス・プログラミング・インタフェース
 
 The consumer application provides the inner consensus programming interface to core PBFT.  PBFT will call these functions to query state and signal events.
 
@@ -2476,7 +2472,7 @@ The `viewChange` function is called by PBFT to signal a successful transition to
 
 Assuming a fixed number of replicas, it is simple to map curView uint64 to replica ID using modulo arithmetic. Having this in mind, with core PBFT implementation, assuming eventual synchrony [4], it is straightforward to argue that the functionality of the `viewChange` call allows simple implementation of the *eventual leader* unreliable failure detector &Omega; [3].  
 
-### 5.4 Sieve Consensus protocol
+### 5.4 Sieve（シーブ）コンセンサス
 
 The design goal of Sieve is to augment PBFT consensus protocol with three main design goals:
 
@@ -2501,7 +2497,7 @@ When core PBFT executes this verify-set, all correct replicas will act in the sa
 Under adverse conditions, a request that diverged between correct replicas may appear like a deterministic request (we speak of *false negative* in Sieve detection of non-determinstic requests).  Nevertheless, Sieve requires at least one correct replica to obtain a certain outcome state in order for that state to be committed. Correct replicas that possibly observe diverging execution will discard their result and synchronize their state to match the agreed-upon execution.
 
 
-## 6. Application Programming Interface
+## 6. アプリケーション・プログラミング・インタフェース(API)
 
 The primary interface to OBC is a REST API. The REST API allows applications to register users, query the blockchain, and to issue transactions. A CLI is also provided to cover a subset of the available APIs for development purposes. The CLI enables developers to quickly test chaincodes or query for status of transactions.
 
