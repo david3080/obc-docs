@@ -1,13 +1,19 @@
-## Notice regarding the Linux Foundation's Hyperledger project
+## Linux FoundationのHyperledgerプロジェクトについて
 
-The IBM Open Blockchain (OBC) project is our contribution to the Linux Foundation [Hyperledger](https://www.hyperledger.org/) project. We have made it available as open source to enable others to explore our architecture and design. IBM intends to engage rigorously in the Linux Foundation [Hyperledger](https://www.hyperledger.org/) project as the community establishes itself and decides on a code base. Once established, we will transition our development focus to the [Hyperledger](https://www.hyperledger.org/) effort, at which point the code will be maintained for use by IBM.
+IBM Open Blockchain(OBC)プロジェクトは、IBMがLinux Foundationの[Hyperledger](https://www.hyperledger.org/)プロジェクトに献上するものです。
+IBMの考えるブロックチェイン・アーキテクチャやデザインを実装し、オープンソース・ソフトウェアとして提供しています。
 
-While we invite [contribution](#contrib) to the IBM Open Blockchain project, we believe that the broader blockchain community focus should be on the shared Linux Foundation [Hyperledger](https://www.hyperledger.org/) project.
+IBMは、コミュニティが、自分自身を自ら確立し、ソースコードを自ら決定する状態になるよう、Linux FoundationのHyperledgerプロジェクトに厳密に従事します。この状態が確立されたら、IBMで使用するためのコードの開発の焦点をHyperledgerに移行します。
 
-## Getting started
-Welcome to Open Blockchain (OBC) development!
+IBM Open Blockchainプロジェクトへの[コードへの貢献](#contrib)をすると同時に、より広範なブロックチェイン・コミュニティとしてはLinux FoundationのHyperledgerプロジェクトになるすべきであると信じています。
+
+## はじめに
+
+Open Blockchain (OBC) 開発にようこそ！
 
 If you are new to Open Blockchain, and want to learn about our position and the scope of the project, please start with our [whitepaper](whitepaper.md). In addition, we encourage you to review our [glossary](glossary.md) to understand the terminology that we use throughout the website and project.
+
+Open Blockchainに関して初めての方やプロジェクトのポジションやスコープについて学習したいなら、[ホワイトペーパー](whitepaper.md)を参照してください。次には、
 
 When you are ready to start using OBC to build applications or to otherwise contribute to the project, we strongly recommend that you read our [protocol specification](protocol-spec.md) for the technical details. Procedurally, we use the agile methodology with a weekly sprint, organized by [issues](https://github.com/openblockchain/obc-peer/issues), so take a look to familiarize yourself with the current work.
 
